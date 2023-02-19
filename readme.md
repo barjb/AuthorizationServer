@@ -12,7 +12,7 @@ Inspiration:
 
 
 
-https://images.ctfassets.net/cdy7uua7fh8z/3sf7RRsy81bt3zcXMnHUSe/2171fdab4ffeb0987c329aa897038abc/rt-and-at.png
+![alt text](/img/rt-and-at.png "Title")
 
 ## Auth Service Endpoints
 - /login - AS returns AT & RT pair
