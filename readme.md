@@ -1,27 +1,27 @@
 # Auth Server Project
 
 ## Description
-- Access and Refresh Token are JWT bearer tokens
+- Access and Refresh Tokens are JWT bearer tokens
 - AT expires in 5 mins
 - RT expires in 3 months
-- Auth Service is meant to provide token rotation for other services
-- Auth Service keeps track of Refresh Tokens and saves them in the database
-- In production Auth Service shouldn't have access to users data. This issue can be resolved by providing to the Auth Service appropriate endpoints from user microservice.
-- For convenience AT and RT are being send as json object. On the other hand sending data in headers can be accessed before the body is downloaded, so there's a place for an improvement.
+- Auth Service provides token rotation for other services
+- Auth Service keeps track of Refresh Tokens and stores them in the database
+- In production Auth Service shouldn't have access to users data. This issue can be resolved by providing to the Auth Service appropriate endpoints from user microservice. Here however AS manages user data as well.
+- For convenience AT and RT are being sent as json object. Advantage of sending data in headers is that it can be accessed before the body is downloaded, so there's a place for a performance improvement.
 
 ![alt text](/img/rt-and-at.png "Title")
 
 ## Auth Service Endpoints
 1. /login - SPA => Auth Service
-    - POST, requires username && password send in body
+    - POST, requires username && password sent in body
     - return AT & RT pair
 
 2. /refresh - Resource Server => Auth Service 
-    - POST, AT && RT send in body
+    - POST, AT && RT sent in body
     - return new AT && RT pair
 
 3. /verify - Resource Server => Auth Service
-    - POST, AT send in body
+    - POST, AT sent in body
     - return boolean
 
 ## Auth Service DB
@@ -50,15 +50,15 @@
        - RS responds to SPA with a protected resource 
     3. Otherwise RS tries to refresh token 
 
-### Expired refresh token flow
-1. Resource Server makes a request to Auth Server's /refresh endpoint with expired token pair
-   - AS responds with 401 unauthorized
-2. RS redirects SPA to login screen
-
 ### Refreshing token
 1. Resource Server makes a request to Auth Server's  /refresh endpoint (expired AT & valid RT)
    - AS validates both
    - If validation passes RS responds with new AT & RT pair
+
+### Expired refresh token flow
+1. Resource Server makes a request to Auth Server's /refresh endpoint with expired token pair
+   - AS responds with 401 unauthorized
+2. RS redirects SPA to login screen
 
 ## Protection against stolen tokens
 
@@ -85,6 +85,6 @@ python -m venv .venv
 pip install -r requirements.txt
 flask --app flaskr --debug run
 ```
-
+This repo is just a proof of concept and it's not meant to be run in a production 💀
 ## Links
 - https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/
