@@ -74,9 +74,11 @@
 
 ### Refresh Token Rotation & Invalidation
 From auth0 article:
+```text
 "Refresh token rotation guarantees that every time an application exchanges a refresh token to get a new access token, a new refresh token is also returned. Therefore, you no longer have a long-lived refresh token that could provide illegitimate access to resources if it ever becomes compromised. The threat of illegitimate access is reduced as refresh tokens are continually exchanged and invalidated."
-"It's critical for the most recently-issued refresh token to get immediately invalidated when a previously-used refresh token is sent to the authorization server. This prevents any refresh tokens in the same token family from being used to get new access tokens."
 
+"It's critical for the most recently-issued refresh token to get immediately invalidated when a previously-used refresh token is sent to the authorization server. This prevents any refresh tokens in the same token family from being used to get new access tokens."
+```
 ## Run in local machine
 - flask --app flaskr --debug run
 
