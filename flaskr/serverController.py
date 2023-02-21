@@ -5,47 +5,6 @@ from flaskr.db import get_db
 from flaskr.auth import encode, JWT, isValid, decode, isValidButExpired
 
 
-def temp():
-    if request.method == 'GET':
-        db = get_db()
-        users = [
-            {'username': 'jacob', 'password': 'password'},
-            {'username': 'test1', 'password': 'test'},
-            {'username': 'test2', 'password': 'test'},
-            {'username': 'test3', 'password': 'test'}
-        ]
-        for user in users:
-            db.execute(
-                "INSERT INTO user (username, password) VALUES (?, ?)",
-                (user['username'], generate_password_hash(user['password'])),
-            )
-        db.commit()
-    return 'ok'
-
-
-def users():
-    db = get_db()
-    users = db.execute('SELECT * FROM user').fetchall()
-    response = [{'name': user['username'], 'password':user['password']}
-                for user in users]
-    return response
-
-
-def tokens():
-    db = get_db()
-    tokens = db.execute('SELECT * FROM token').fetchall()
-    response = [{'id': token['id'], 'tokenstr': token['tokenstr'], 'rootId':token['rootId'],
-                 'refreshed':token['refreshed']} for token in tokens]
-    return response
-
-
-def cleartokens():
-    db = get_db()
-    db.execute('DELETE FROM token WHERE 1=1')
-    db.commit()
-    return 'ok'
-
-
 def login():
     username = request.json['username']
     password = request.json['password']
