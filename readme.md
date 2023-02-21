@@ -79,8 +79,12 @@ From auth0 article:
 
 "It's critical for the most recently-issued refresh token to get immediately invalidated when a previously-used refresh token is sent to the authorization server. This prevents any refresh tokens in the same token family from being used to get new access tokens."
 ```
-## Run in local machine
-- flask --app flaskr --debug run
+## Run on virtual environment
+```
+python -m venv .venv
+pip install -r requirements.txt
+flask --app flaskr --debug run
+```
 
 ## Links
 - https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/
